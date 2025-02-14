@@ -112,21 +112,10 @@
         .imagen.mostrar p {
             opacity: 1;
         }
-        .buttons {
-            margin-top: 20px;
-        }
-        button {
-            margin: 10px;
-            padding: 10px 15px;
-            background-color: #d3a96d;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #b88b54;
+        .video video {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -146,11 +135,19 @@
             <img src="AJ.png">
             <p>Tu y yo❤</p>
         </div>
+        <div class="contenido video" id="video">
+            <video id="miVideo" controls>
+                <source src="Bon Jovi - Thank You For Loving Me (Lyrics).mp4" type="video/mp4">
+                Tu navegador no soporta el video.
+            </video>
+            <button onclick="expandirVideo()">Pantalla completa</button>
+        </div>
     </div>
     <div class="buttons">
         <button onclick="abrirSobre()">Abrir</button>
         <button onclick="mostrarCarta()">Mostrar carta</button>
         <button onclick="mostrarImagen()">Mostrar imagen</button>
+        <button onclick="mostrarVideo()">Reproducir video</button>
         <button onclick="cerrarSobre()">Cerrar</button>
     </div>
     <script>
@@ -178,9 +175,30 @@
                 document.getElementById("imagen").classList.add("mostrar");
             }
         }
+        function mostrarVideo() {
+            if (sobreAbierto) {
+                cerrarContenido();
+                document.getElementById("video").classList.add("mostrar");
+                document.getElementById("miVideo").play();
+            }
+        }
         function cerrarContenido() {
             document.getElementById("carta").classList.remove("mostrar");
             document.getElementById("imagen").classList.remove("mostrar");
+            document.getElementById("video").classList.remove("mostrar");
+            document.getElementById("miVideo").pause();
+        }
+        function expandirVideo() {
+            let video = document.getElementById("miVideo");
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
         }
     </script>
 </body>
