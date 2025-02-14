@@ -102,6 +102,16 @@
             object-fit: contain;
             border-radius: 8px;
         }
+        .imagen p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .imagen.mostrar p {
+            opacity: 1;
+        }
         .video video {
             width: 100%;
             height: 100%;
@@ -123,22 +133,6 @@
         button:hover {
             background-color: #b88b54;
         }
-        .fullscreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-        }
-        .fullscreen video {
-            width: 90%;
-            height: 90%;
-        }
     </style>
 </head>
 <body>
@@ -158,7 +152,6 @@
         <div class="contenido imagen" id="imagen">
             <img src="AJ.png">
             <p>Tu y yo❤</p>
-            
         </div>
         <div class="contenido video" id="video">
             <video id="miVideo" controls>
@@ -177,60 +170,11 @@
     </div>
 
     <script>
-        let sobreAbierto = false;
-
-        function abrirSobre() {
-            document.getElementById("solapa").style.transform = "rotateX(180deg)";
-            document.getElementById("corazon").style.opacity = "0";
-            sobreAbierto = true;
-        }
-
-        function cerrarSobre() {
-            document.getElementById("solapa").style.transform = "rotateX(0deg)";
-            document.getElementById("corazon").style.opacity = "1";
-            cerrarContenido();
-            sobreAbierto = false;
-        }
-
-        function mostrarCarta() {
-            if (sobreAbierto) {
-                cerrarContenido();
-                document.getElementById("carta").classList.add("mostrar");
-            }
-        }
-
         function mostrarImagen() {
             if (sobreAbierto) {
                 cerrarContenido();
-                document.getElementById("imagen").classList.add("mostrar");
-            }
-        }
-
-        function mostrarVideo() {
-            if (sobreAbierto) {
-                cerrarContenido();
-                document.getElementById("video").classList.add("mostrar");
-                document.getElementById("miVideo").play();
-            }
-        }
-
-        function cerrarContenido() {
-            document.getElementById("carta").classList.remove("mostrar");
-            document.getElementById("imagen").classList.remove("mostrar");
-            document.getElementById("video").classList.remove("mostrar");
-            document.getElementById("miVideo").pause();
-        }
-
-        function expandirVideo() {
-            let video = document.getElementById("miVideo");
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.mozRequestFullScreen) { 
-                video.mozRequestFullScreen();
-            } else if (video.webkitRequestFullscreen) { 
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) { 
-                video.msRequestFullscreen();
+                let imagen = document.getElementById("imagen");
+                imagen.classList.add("mostrar");
             }
         }
     </script>
